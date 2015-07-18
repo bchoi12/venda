@@ -2,6 +2,7 @@
 var ref = new Firebase("https://fiery-torch-745.firebaseio.com");
 var usersRef = ref.child("users");
 var itemsRef = ref.child("items");
+var authId = "6789";
 
 function setUser(userId, name) {
   usersRef.child(userId).set({
@@ -19,8 +20,10 @@ function setUser(userId, name) {
   });
 };
 
-function updateUserLocation(userId, longitude, latitude) {
-  var userLocationRef = usersRef.child(userId).child("currentLocation");
+function updateUserLocation(longitude, latitude) {
+  //login Error
+
+  var userLocationRef = usersRef.child(authId).child("currentLocation");
   userLocationRef.update({
     "longitude": longitude,
     "latitude": latitude
@@ -58,23 +61,32 @@ function getRating(userId, clientCallback) {
   });
 };
 
-function updateMyItem(userId, itemId) {
-  var itemRef = usersRef.child(userId).child("myItems");
-  temp = {};
-  temp[itemId] = true;
-  itemRef.update(temp);
+function updateMyItem(itemId) {
+    //login Error
+  if (authId !== null && authId !== undefined) {
+    var itemRef = usersRef.child(authId).child("myItems");
+    temp = {};
+    temp[itemId] = true;
+    itemRef.update(temp);
+  } else {
+     console.log("Error! user needs to be logged in to update selling items!");
+  }
 };
 
-function updateBidItem(userId, itemId, price) {
-  var itemRef = usersRef.child(userId).child("myBids");
-  temp = {};
-  temp[itemId] = price;
-  itemRef.update(temp);
+function updateBidItem(itemId, price) {
+  if (authId !== null && authId !== undefined) {
+    var itemRef = usersRef.child(authId).child("myBids");
+    temp = {};
+    temp[itemId] = price;
+    itemRef.update(temp);
+  } else {
+    console.log("Error! user needs to be logged in to update bid of an item!");
+  }
 };
 
 // clientCallback to update price
-function getBidItemPrice(userId, itemId, clientCallback) {
-  var itemRef = usersRef.child(userId).child("myBids").child(itemId);
+function getMyBidPriceOnItem(itemId, clientCallback) {
+  var itemRef = usersRef.child(authId).child("myBids").child(itemId);
   itemRef.on("value", function(data) {
     clientCallback(data.val());
   })
@@ -87,26 +99,62 @@ function getUserLocation(userId, clientCallback) {
   })
 };
 
-// Item
-function addItem(sellerId, closingTime, name, type, minimumSuggestedPrice, description) {
-  if (sellerId !== null) {
-    getUserLocation(sellerId, function(sellerLocation) {
-      itemsRef.push({
+// Items
+function addItem(closingTime, name, type, minimumSuggestedPrice, initialBidPrice, description) {
+  if (authId !== null && authId !== undefined) {
+    getUserLocation(authId, function(sellerLocation) {
+      var itemId = itemsRef.push({
         status: "OPEN",
-        sellerId: sellerId,
+        sellerId: authId,
         closingTime: closingTime,
         name: name,
         type: type,
-        currentBidPrice: -1,
+        currentBidPrice: initialBidPrice,
         minimumSuggestedPrice: minimumSuggestedPrice,
         description: description,
         sellerLocation: sellerLocation
       });
+      updateMyItem(itemId);
     })
   } else {
     console.log("Error! user needs to be logged in to add an item!");
   }
 };
 
+function setMeetingLocation(itemId, time, loc) {
+  meetupTimeRef = itemsRef.child(itemId);
+  meetupTimeRef.update({meetupTime: time, meetupLocation: loc});
+}
+
+function bidItem(itemId, price) {
+  if (authId !== null && authId !== undefined) {
+    itemToBid = itemsRef.child(itemId);
+    itemToBid.on("value", function(snapshot) {
+      var curPrice = snapshot.val();
+      if (curPrice >= price) {
+        console.log("Could not bid on the price. Bidding price is too low!");
+        // Insert jquery here for giving the user an error
+      } else {
+        itemToBid.update({ currentBidPrice: price });
+        updateBidItem(itemId, price);
+        console.log("Successfully bid on the price! New price is : " + price);
+        // Insert jquery telling the user that the bid went through.
+
+      }
+    }, function(errorObject) {
+      console.log("The read failed: " + errorObject.code);
+    });
+  } else {
+    console.log("Error! user needs to be logged in to bid an item!"); 
+  }
+}
+
+// clientCallback update current bid price
+function getItemCurrentBidPrice(itemId, clientCallback) {
+  var bidPriceRef = itemsRef.child(itemId).child("currentBidPrice");
+  itemRef.on("value", function(data) {
+    clientCallback(data.val());
+  })
+};
 
 
