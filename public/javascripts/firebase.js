@@ -193,7 +193,9 @@ function getItemCurrentBidPrice(itemId, clientCallback) {
   })
 };
 
-function itemNameLookup(words) {
+function itemNameLookup(words) { 
+  var wordSet = new Set(words);
+  
   
 }
 
