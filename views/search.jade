@@ -16,13 +16,14 @@ block content
         label(for='cost' class='label-cost') Search By Cost
         span(class='range-helpers') $
           input(class='range-input' type='text' value='50')
-        input(id='cost' class='search-cost' type='range' min='0', max='100')
+        input(id='cost' class='search-cost' type='range' min='0', max='5000' step="10")
 
       div(class='dist-bar')
         label(for='dist' class='label-dist') Search By Distance
-        span(class='range-helpers') $
+        span(class='range-helpers')
           input(class='range-input' type='text' value='5')
-        input(id='dist' class='search-dist' type='range' min='0', max='10')
+          span mi
+        input(id='dist' class='search-dist' type='range' min='0', max='10' step="0.1")
 
       div(class='category-bar')
         label(for='category' class='label-category') Select Category
@@ -30,6 +31,8 @@ block content
           option(class='category-item') Category 1
           option(class='category-item') Category 2
           option(class='category-item') Category 3
+      //- button(type='submit' class='search-button-js') Search
+
 
 
 
