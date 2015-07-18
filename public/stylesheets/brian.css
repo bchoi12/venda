@@ -153,3 +153,18 @@
 	opacity: 0;
 	transition: ease-in-out 6s;
 }
+
+.bid-button {
+	float: right;
+	margin: 10px;
+	padding: 5px;
+	padding-left: 20px;
+	padding-right: 20px;
+	background-color: #cd6969;
+	color: #f6f6f6;
+	border: none;
+}
+
+.bid-button:hover {
+	background-color: #ef7a7a;
+}
