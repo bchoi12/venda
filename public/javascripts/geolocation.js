@@ -21,9 +21,14 @@ function init() {
     mapTypeId: google.maps.MapTypeId.TERRAIN,
     disableDefaultUI: false
   }
-  map = new google.maps.Map(document.getElementById('map-canvas'), myOptions);
-  prepareGeolocation();
-  doGeolocation();
+
+  if (document.getElementById('map-canvas')) {
+    map = new google.maps.Map(document.getElementById('map-canvas'), myOptions);
+    prepareGeolocation();
+    doGeolocation();
+  } else {
+    prepareGeolocation();
+  }
 }
 
 function doGeolocation() {

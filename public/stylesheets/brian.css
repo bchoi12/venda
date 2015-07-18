@@ -20,6 +20,8 @@
 	width: 80%;
 	min-width: 1000px;
 	margin: 0 auto;
+
+	background-color: rgba(246, 246, 246, 0.9);
 }
 
 .small-container {
@@ -126,6 +128,18 @@
 .bgbgbg {
 	background: url('/sf.jpg');
 	background-size: cover;
+}
+
+.main-container {
 	padding-bottom: 50px;
 }
 
+.bgbgspace {
+	background: url('/space.jpg');
+	background-size: cover;
+}
+
+.bgbggs {
+	background: url('/garagesale.jpg');
+	background-size: cover;	
+}
