@@ -6,4 +6,9 @@ router.get('/', function(req, res, next) {
   res.render('search', { title: 'Venda | Search' });
 });
 
+
+router.post('/', function(req, res, next) {
+  res.render('sell', { title: 'Venda | Sell' });
+});
+
 module.exports = router;

@@ -16,7 +16,7 @@ function authDataCallback(authData) {
 
 ref.onAuth(authDataCallback);
 function Error(msg) {
-  $('#error').html('msg');
+  $('#error').html(msg);
 }
 
 function setUser(userId, name) {
