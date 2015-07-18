@@ -3,8 +3,23 @@ var ref = new Firebase("https://venda.firebaseio.com/");
 var usersRef = ref.child("users");
 var itemsRef = ref.child("items");
 var searchRef = ref.child("itemLookup")
-var authId = "6789";
+var authId;
 
+function Success(msg) {
+  $('#success').html(msg);  
+}
+
+function authDataCallback(authData) {
+  if (authData) {
+    authId = authData.uid;
+    console.log("User " + authData.uid + " is logged in with " + authData.provider);
+  } else {
+    authId = null;
+    console.log("User is no longer logged in!");
+  }
+}
+
+ref.onAuth(authDataCallback);
 function Error(msg) {
   $('#error').html(msg);
 }
@@ -115,6 +130,7 @@ function getUserLocation(userId, clientCallback) {
 
 // Items
 function addItem(closingTime, name, type, minimumSuggestedPrice, initialBidPrice, description) {
+  console.log("adding item!" + authId);
   if (authId !== null && authId !== undefined) {
     var sellerLocation = "10";
     var wordObject = {};
@@ -130,19 +146,29 @@ function addItem(closingTime, name, type, minimumSuggestedPrice, initialBidPrice
         description: description,
         sellerLocation: sellerLocation
       });
+      var userItemsRef = usersRef.child(authId).child('myItems');
+      var tempObjectMyItems = {};
+      tempObjectMyItems[itemId.key()] = true;
+      userItemsRef.update(tempObjectMyItems);
       updateMyItem(itemId.key());
+      console.log(name);
       var wordList = name.split(" ");
       var listLen = wordList.length;
-      for (var i = 0l i < listLen; i++) {
-        wordObject[wordList[i]] = itemId.key();
+      for (var i = 0; i < listLen; i++) {
+        var curWord = wordList[i];
+        wordObject[curWord] = itemId.key();
+        console.log(wordObject);
+        for (var key in wordObject) {
+          wordRef = searchRef.child(key);
+          var id = wordObject[key];
+          var object = {};
+          object[id] = true;
+          wordRef.update(object);
+        }
 
       }
     })
-    
-    for (var key in wordObject) {
-      wordRef = searchRef.child(key);
-      wordRef.update({wordObject[key] : true});
-    }
+    Success("Successfully put a new item on sale!")
 
   } else {
     Error("Error! user needs to be logged in to add an item!");
@@ -246,11 +272,11 @@ function getTopKItemsLeastCost(k, type, clientCallback) {
   var tempRef = ref.child("temp");
   itemsRef.orderByChild("type").equalTo(type).on("value", function(snapshot) {
     tempRef.set({})
-    console.log(snapshot.val());
+    // console.log(snapshot.val());
     snapshot.forEach(function(data) {
-      console.log(data.key());
-      console.log(data.val());
-      console.log(data.val().currentBidPrice);
+      // console.log(data.key());
+      // console.log(data.val());
+      // console.log(data.val().currentBidPrice);
       // list format
       // temp = {};    
       // temp[data.key()] = data.val().currentBidPrice;
@@ -261,16 +287,96 @@ function getTopKItemsLeastCost(k, type, clientCallback) {
         item: data.val()
       });
     });
-    console.log("--------------------------------------------")
+    // console.log("--------------------------------------------")
     tempRef.orderByChild("currentBidPrice").limitToFirst(3).on("value", function(snapshot2) {
-      console.log(snapshot2.key());
-      // clientCallback(snapshot2.val().item)
+      // console.log(snapshot2.val());
+      clientCallback(snapshot2.val());
     })
   });
 }
 
-  // itemsRef.orderByChild("currentBidPrice").on("child_added", function(snapshot) {
-  //   snapshot.forEach(function(data) {
-  //     alert(data);
-  //   });
-  // });
+function getItemsBelowPrice(type, maxPrice, clientCallback) {
+
+  $('#search-result-h1').css('opacity', '1');
+  $('#search-result-h6').css('opacity', '0.85');
+
+  var tempRef = ref.child("temp");
+
+  if(type === "all") {
+    itemsRef.on("value", function(snapshot) {
+    tempRef.set({})
+    // console.log(snapshot.val());
+    snapshot.forEach(function(data) {
+      // console.log(data.key());
+      // console.log(data.val());
+      // console.log(data.val().currentBidPrice);
+      // list format
+      // temp = {};    
+      // temp[data.key()] = data.val().currentBidPrice;
+      // tempRef.update(temp);
+      tempRef.push({
+        pushId: data.key(),
+        currentBidPrice: data.val().currentBidPrice,
+        item: data.val()
+      });
+    });
+    // console.log("--------------------------------------------")
+    tempRef.orderByChild("currentBidPrice").endAt(maxPrice).on("value", function(snapshot2) {      
+      clientCallback(snapshot2);
+    });
+  });
+  } else {
+
+    itemsRef.orderByChild("type").equalTo(type).on("value", function(snapshot) {
+      tempRef.set({})
+      // console.log(snapshot.val());
+      snapshot.forEach(function(data) {
+        // console.log(data.key());
+        // console.log(data.val());
+        // console.log(data.val().currentBidPrice);
+        // list format
+        // temp = {};    
+        // temp[data.key()] = data.val().currentBidPrice;
+        // tempRef.update(temp);
+        tempRef.push({
+          pushId: data.key(),
+          currentBidPrice: data.val().currentBidPrice,
+          item: data.val()
+        });
+      });
+      // console.log("--------------------------------------------")
+      tempRef.orderByChild("currentBidPrice").endAt(maxPrice).on("value", function(snapshot2) {      
+        clientCallback(snapshot2);
+      });
+    });
+  }
+}
+
+function searchResults(data_list) {
+  $('.search-results').html('');
+  $('#search-result-h6').css('display', 'none');
+
+  console.log(data_list.val());
+  data_list.forEach(function(data) {
+
+    $('.search-results').append('<li class="search-results-item"><button class="bid-button">BID</button>' + data.val().item.name + ' | $' + data.val().currentBidPrice + '<br>' + data.val().item.description + '<br>' + data.val().item.sellerLocation + '</li>');
+
+    console.log(data.val());
+    console.log(data.val().item.name);
+    console.log(data.val().currentBidPrice);
+    console.log(data.val().item.description);
+    console.log(data.val().item.sellerLocation);
+  })
+}
+
+// Sample Usage Call back function
+// getItemsBelowPrice("container", 10, function(data_list) {
+//   console.log(data_list.val());
+//   data_list.forEach(function(data) {
+//     console.log(data.val());
+//     console.log(data.val().item.name);
+//     console.log(data.val().currentBidPrice);
+//     console.log(data.val().item.description);
+//     console.log(data.val().item.sellerLocation);
+//   })
+// });

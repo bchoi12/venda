@@ -1,7 +1,7 @@
 var ref = new Firebase("https://venda.firebaseio.com");
 
 function Error(msg) {
-  $('#error').html('msg');
+  $('#error').html(msg);
 }
 
 var authId;

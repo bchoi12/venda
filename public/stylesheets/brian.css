@@ -36,6 +36,10 @@
 	color: #ff0000;
 }
 
+#success {
+	color: #008000;
+}
+
 .form-container h1 {
 	border-bottom: 1px solid #aaa;
 	padding-bottom: 10px;
@@ -142,4 +146,29 @@
 .bgbggs {
 	background: url('/garagesale.jpg');
 	background-size: cover;	
+}
+
+.fade {
+	opacity: 0;
+	transition: all 1s;
+}
+
+.fade-slow {
+	opacity: 0;
+	transition: ease-in-out 6s;
+}
+
+.bid-button {
+	float: right;
+	margin: 10px;
+	padding: 5px;
+	padding-left: 20px;
+	padding-right: 20px;
+	background-color: #cd6969;
+	color: #f6f6f6;
+	border: none;
+}
+
+.bid-button:hover {
+	background-color: #ef7a7a;
 }

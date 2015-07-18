@@ -1,5 +1,31 @@
 var ref = new Firebase("https://venda.firebaseio.com/");
 
+function Error(message) {
+  $('#error').text(message);
+}
+
+function Success(msg) {
+  $('#success').html(msg);	
+}
+
+var usersRef = ref.child("users");
+
+function setUser(userId, name) {
+  usersRef.child(userId).set({
+    "name": name,
+    "currentLocation": {
+      "longitude": -1,
+      "latitude": -1
+    },
+    "generalRating": {
+      "numRatings": 0,
+      "ratingsSum": 0
+    },
+    "myItems": { },
+    "myBids": { }
+  });
+};
+
 // Functiont that checks if the user is logged in
 function isLoggedIn(authData) {
   if (authData) {
@@ -21,25 +47,27 @@ function createAccount(user, pass) {
 	  password : pass
 	}, function(error, userData) {
 	  if (error) {
-	    console.log("Error creating user:", error);
+	    Error("Error creating user:" + error);
 	  } else {
-		var errorCode = null;
-	  	if (error === null) {
-	  		console.log(user, pass);
-		  	ref.authWithPassword({
-			  email    : user,
-			  password : pass
-			}, function(error, authData) {
-			  if (error) {
-			  } else {
-		    	error = true;
-			  }
-			}, {
-				remember: "sessionOnly"
-			});	  		
-	  	}
-	    console.log("Successfully created user account with uid:", userData.uid);
-	    window.location.href="/search"
+	  	var userId = userData.uid;
+	  	setUser(userId, "Jack");
+		// var errorCode = null;
+	 //  	if (error === null) {
+	 //  		console.log(user, pass);
+		//   	ref.authWithPassword({
+		// 	  email    : user,
+		// 	  password : pass
+		// 	}, function(error, authData) {
+		// 	  if (error) {
+		// 	  } else {
+		//     	error = true;
+		// 	  }
+		// 	}, {
+		// 		remember: "sessionOnly"
+		// 	});	  		
+	 //  	}
+	    Success("Successfully created user account with uid");
+	    // window.location.href="/search"
 	  }
 	});
 };

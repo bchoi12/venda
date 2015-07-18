@@ -7,32 +7,46 @@ block content
   //- h1 #{title}
   script(type='text/javascript', src='javascripts/items.js')
 
+
+
   div(class='main-container ')
+    br
+    br
+    form(action="/search", method="post")
+      input(type="submit", name="goToSell", value="Sell Something!")
+
     div(class="search-bar")
+      form(onsubmit='return false')
         input(class='search-field' type='text' placeholder='Search for items')
-        button(class='search-button' type='submit') Go
+        button(class='search-button' onclick='getItemsBelowPrice(this.form.category.value, this.form.cost.value, searchResults)') Go
 
-      div(class='cost-bar')
-        label(for='cost' class='label-cost') Search By Cost
-        span(class='range-helpers') $
-          input(class='range-input' type='text' value='50')
-        input(id='cost' class='search-cost' type='range' min='0', max='5000' step="10")
+        div(class='cost-bar')
+          label(for='cost' class='label-cost') Max Price ($)
+          i(class='fa fa-dollar')
+          span(class='range-helpers', style='margin-right:20px;')
+            input(id='cost-range-input', style="width: 50px; text-align: right;" type='text', placeholder='$50')
+          input(id='cost-range' class='search-cost' type='range', name='cost', value='100', min='10', max='1000', step='10')
 
-      div(class='dist-bar')
-        label(for='dist' class='label-dist') Search By Distance
-        span(class='range-helpers')
-          input(class='range-input' type='text' value='5')
-          span mi
-        input(id='dist' class='search-dist' type='range' min='0', max='10' step="0.1")
+        div(class='dist-bar')
+          label(for='dist' class='label-dist') Distance (miles)
+          i(class='fa fa-car')
+          span(class='range-helpers', style='margin-right:20px;')
+            input(id='dist-range-input', style="width: 50px; text-align: right;", type='text', placeholder='15mi')
+          input(id='dist-range' class='search-dist', name='dist', type='range', value='15', min='5', max='25', step='.1')
 
-      div(class='category-bar')
-        label(for='category' class='label-category') Select Category
-        select(id='category' class='select-category')
-          option(class='category-item') Category 1
-          option(class='category-item') Category 2
-          option(class='category-item') Category 3
-      //- button(type='submit' class='search-button-js') Search
+        div(class='category-bar')
+          label(for='category' class='label-category') Select Category
+          select(id='category', name='category', class='select-category')
+            option(class='category-item' value='all') All
+            option(class='category-item' value='container') Container
+            option(class='category-item' value='food') Food
+            option(class='category-item' value='books') Textbooks
+            option(class='category-item' value='electronics') Electronics
 
-
+      br
+      br
+      h1(id="search-result-h1", class="fade", style="border-bottom: 1px solid #aaa; width: 70%; margin: 0 auto;") Search Results
+      h6(id="search-result-h6", class="fade-slow") finding great items for you to purchase...
+      ul(class="search-results")
 
 
