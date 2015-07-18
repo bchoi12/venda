@@ -80,6 +80,7 @@ var loginFacebookPopup = function() {
 	    return false;
 	  } else {
 	    console.log("Authenticated successfully with facebook with payload:", authData);
+	    window.location.href = "/search";
 	    return true;
 	  }
 	}, {
