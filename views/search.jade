@@ -11,7 +11,7 @@ block content
     div(class="search-bar")
       form(onsubmit='return false')
         input(class='search-field' type='text' placeholder='Search for items')
-        button(class='search-button' onclick='getItemsBelowPrice("container", this.form.cost.value, searchResults)') Go
+        button(class='search-button' onclick='getItemsBelowPrice("container", 10, searchResults)') Go
 
         div(class='cost-bar')
           label(for='cost' class='label-cost') Max Price ($)
