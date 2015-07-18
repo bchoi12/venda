@@ -1,28 +1,28 @@
 extends layout
 
 block nav
-  nav(class='navigation')
-    ul(class='menu')
-      li(class='menu-item') Menu
-      li(class='menu-item')
-        h1(class="main-header") Search
+  include nav.jade
 
 block content
   //- h1 #{title}
   script(type='text/javascript', src='javascripts/items.js')
 
-  div(class='main-container')
+  div(class='main-container ')
     div(class="search-bar")
         input(class='search-field' type='text' placeholder='Search for items')
         button(class='search-button' type='submit') Go
 
       div(class='cost-bar')
         label(for='cost' class='label-cost') Search By Cost
-        input(id='cost' class='search-cost' type='range')
+        span(class='range-helpers') $
+          input(class='range-input' type='text' value='50')
+        input(id='cost' class='search-cost' type='range' min='0', max='100')
 
       div(class='dist-bar')
         label(for='dist' class='label-dist') Search By Distance
-        input(id='dist' class='search-dist' type='range')
+        span(class='range-helpers') $
+          input(class='range-input' type='text' value='5')
+        input(id='dist' class='search-dist' type='range' min='0', max='10')
 
       div(class='category-bar')
         label(for='category' class='label-category') Select Category
