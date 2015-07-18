@@ -16,26 +16,7 @@ function authDataCallback(authData) {
 ref.onAuth(authDataCallback);
 
 var itemsRef = ref.child("items");
-function addItem(auctionEndTime, itemName, itemType, inputPrice, minSuggestedPrice, description, imageUrls, sellerLocation) {
-  if (sellerId !== null) {
-    itemsRef.push({
-      "status": "OPEN",
-      "sellerId": sellerId,
-      "closingTime": auctionEndTime,
-      "name": itemName,
-      "type": itemType,
-      "currentBidPrice": inputPrice,
-      "minimumSuggestedPrice": minSuggestedPrice,
-      "description": description,
-      "imageUrls": imageUrls,
-      "sellerLocation": sellerLocation
-    });
-  } else {
-    console.log("Error! user needs to be logged in to add an item!");
-    // INSERT JQUERY HERE
-  }
 
-}
 
 function setMeetingLocation(itemId, time, loc) {
   meetupTimeRef = ref.child('items').child(itemId);
