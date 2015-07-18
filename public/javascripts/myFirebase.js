@@ -5,9 +5,13 @@ var itemsRef = ref.child("items");
 var searchRef = ref.child("itemLookup")
 var authId;
 
+
 function Success(msg) {
-  $('#success').html(msg);  
+  $('#error').empty();
+  $('#success').html(msg);
+
 }
+
 
 function authDataCallback(authData) {
   if (authData) {
