@@ -1,7 +1,5 @@
 
-#form-container {
-	width: 20%;
-	min-width: 300px;
+.form-container {
 	margin: 0 auto;
 
 	text-align: center;
@@ -12,43 +10,67 @@
 	box-shadow: 1px 1px 5px #555;
 }
 
-#form-container #error {
+.large-container {
+	width: 80%;
+	min-width: 1000px;
+}
+
+.small-container {
+	width: 20%;
+	min-width: 300px;
+}
+
+.form-container #error {
 	color: #ff0000;
 }
 
-#form-container h1 {
+.form-container h1 {
 	border-bottom: 1px solid #aaa;
 	padding-bottom: 10px;
 	margin-bottom: 5px;
 	margin-top: 5px;
 }
 
-#form-container h6 {
+.form-container h6 {
 	margin-top: 10px;
 	font-weight: normal;
 	color: #777;	
 }
 
-#form-container form {
+.form-container form {
 	border-bottom: 1px #aaa solid;
 	padding-bottom: 40px;
 	margin-bottom: 40px;
 }
 
-#form-container input {
+.form-container input {
 	border: none;
 	border-bottom: 1px #777 inset;
 	padding: 8px;
 	margin: 1px;
-	width: 95%;
 
-	border-radius: 2px;
+	border-radius: 4px;
 }
 
-#form-container button {
-	width: 100%;
+.large-container input {
+	width: 48%;
+	display: inline-block;
+}
+
+.small-container input {
+	width: 95%;
+}
+
+.large-container label {
+	width: 48%;
+	display: inline-block;
+	text-align: right;
+	padding-right: 20px;
+}
+
+.form-container button {
 	margin-top: 10px;
-	background-color: #529ecc;
+	background-color: #68BCD5;
 	border: none;
 	border-radius: 6px;
 	padding: 10px;
@@ -58,18 +80,26 @@
 	transition: 0.2s all;
 }
 
-#form-container button:hover {
-	background-color: #74bfdd;
+.small-container button {
+	width: 100%;
 }
 
-#form-container #facebook {
+.large-container button {
+	width: 60%;
+}
+
+.form-container button:hover {
+	background-color: #8acde6;
+}
+
+.form-container #facebook {
 	font-size: 36px;
 	transition: 0.2s all;
 
 	padding-bottom: 30px;
 }
 
-#form-container #facebook:hover {
+.form-container #facebook:hover {
 	cursor: pointer;
 	color: #529ecc;
 	font-size: 66px;
