@@ -3,6 +3,11 @@ var ref = new Firebase("https://venda.firebaseio.com/");
 function Error(message) {
   $('#error').text(message);
 }
+
+function Success(msg) {
+  $('#success').html(msg);	
+}
+
 var usersRef = ref.child("users");
 
 function setUser(userId, name) {
@@ -61,7 +66,7 @@ function createAccount(user, pass) {
 		// 		remember: "sessionOnly"
 		// 	});	  		
 	 //  	}
-	    console.log("Successfully created user account with uid:", userData.uid);
+	    Success("Successfully created user account with uid");
 	    // window.location.href="/search"
 	  }
 	});
