@@ -3,6 +3,11 @@ var ref = new Firebase("https://fiery-torch-745.firebaseio.com");
 var usersRef = ref.child("users");
 var itemsRef = ref.child("items");
 
+function Error(msg) {
+  $('#error').html('msg');
+
+}
+
 function setUser(userId, name) {
   usersRef.child(userId).set({
     "name": name,
