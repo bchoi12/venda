@@ -5,8 +5,7 @@ var itemsRef = ref.child("items");
 var authId = "6789";
 
 function Error(msg) {
-  // $('#error').html('msg');
-  console.log(msg);
+  $('#error').html('msg');
 }
 
 function setUser(userId, name) {
@@ -222,3 +221,36 @@ function getItem(itemId) {
     clientCallback(data.val());
   })
 }
+
+function getTopKItemsLeastCost(k, type, clientCallback) {
+  var tempRef = ref.child("temp");
+  itemsRef.orderByChild("type").equalTo(type).on("value", function(snapshot) {
+    tempRef.set({})
+    console.log(snapshot.val());
+    snapshot.forEach(function(data) {
+      console.log(data.key());
+      console.log(data.val());
+      console.log(data.val().currentBidPrice);
+      // list format
+      // temp = {};    
+      // temp[data.key()] = data.val().currentBidPrice;
+      // tempRef.update(temp);
+      tempRef.push({
+        pushId: data.key(),
+        currentBidPrice: data.val().currentBidPrice,
+        item: data.val()
+      });
+    });
+    console.log("--------------------------------------------")
+    tempRef.orderByChild("currentBidPrice").limitToFirst(3).on("value", function(snapshot2) {
+      console.log(snapshot2.key());
+      // clientCallback(snapshot2.val().item)
+    })
+  });
+}
+
+  // itemsRef.orderByChild("currentBidPrice").on("child_added", function(snapshot) {
+  //   snapshot.forEach(function(data) {
+  //     alert(data);
+  //   });
+  // });
