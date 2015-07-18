@@ -17,16 +17,29 @@ function isLoggedIn(authData) {
 
 function createAccount(user, pass) {
 	ref.createUser({
-		email: user,
-		password: pass
-	}, function(error, userData)  {
-		if (error) {
-		    console.log("Error creating user:", error);
-		    return false;
-		} else {
-		    console.log("Successfully created user account with uid:", userData.uid);
-		    return true;
-		}
+	  email    : user,
+	  password : pass
+	}, function(error, userData) {
+	  if (error) {
+	    console.log("Error creating user:", error);
+	  } else {
+		var errorCode = null;
+	  	while (error === null) {
+		  	ref.authWithPassword({
+			  email    : user,
+			  password : pass
+			}, function(error, authData) {
+			  if (error) {
+			  } else {
+		    	error = true;
+			  }
+			}, {
+				remember: "sessionOnly"
+			});	  		
+	  	}
+	    console.log("Successfully created user account with uid:", userData.uid);
+	    window.location.href="/search"
+	  }
 	});
 };
 
@@ -53,7 +66,7 @@ function login(user, pass) {
 	  	}
 	  } else {
     	console.log("Authenticated successfully with payload:", authData);
-    	res.render('search');
+    	window.location.href = "/search";
 	  }
 	}, {
 		remember: "sessionOnly"
@@ -67,6 +80,7 @@ var loginFacebookPopup = function() {
 	    return false;
 	  } else {
 	    console.log("Authenticated successfully with facebook with payload:", authData);
+	    window.location.href = "/search";
 	    return true;
 	  }
 	}, {

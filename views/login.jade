@@ -1,23 +1,20 @@
-extends layout
-
 block content
-	script(type='text/javascript', src="https://cdn.firebase.com/js/client/2.2.7/firebase.js")
-	script(type='text/javascript', src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js")
-	script(type='text/javascript', src='/javascripts/auth.js')
-	h1= Login
-	h2(id='error')
+	h1=Login
 
-	form(onsubmit='return false;')
-		h2(type='login', name='login') Login
-		input(type='email', name='email', placeholder='Email')
-		input(type='password', name='password', placeholder='Password')
-		input(type='submit', onclick='login(this.form.email.value, this.form.password.value)')
+	div(id="form-container")
+		form(id="login", onsubmit='return false;')
+			h2(type='login', name='login') Login
+			input(type='email', name='email', placeholder='email')
+			input(type='password', name='password', placeholder='password')
+			button(onclick='login(this.form.email.value, this.form.password.value)') SUBMIT
+		form(id="signup", onsubmit='return false;')
+			h2(type='signup', name='signup') Signup
+			input(type='email', name='email', placeholder='email')
+			input(type='password', name='password', placeholder='password')
+			button(onclick='createAccount(this.form.email.value, this.form.password.value)') SUBMIT
 
-	form(action='/signup', method='post')
-		h2(type='signup', name='signup') Signup
-		input(type='email', name='email', placeholder='Email')
-		input(type='password', name='password', placeholder='Password')
-		input(type='submit')
+	span(id='error')
+
 
 	h2 Login With Facebook
-	button(type='submit') Login
+	button(type='submit', onclick="loginFacebookPopup()") Login

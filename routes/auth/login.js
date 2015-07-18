@@ -7,9 +7,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/login', function(req, res, next) {
-  var formObjects = req.body;
-  var password = formObjects.password;
-  var inputEmail = formObjects.email;
+  res.render('search');
 
 });
 
