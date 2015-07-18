@@ -1,5 +1,23 @@
 var ref = new Firebase("https://venda.firebaseio.com/");
 
+var usersRef = ref.child("users");
+
+function setUser(userId, name) {
+  usersRef.child(userId).set({
+    "name": name,
+    "currentLocation": {
+      "longitude": -1,
+      "latitude": -1
+    },
+    "generalRating": {
+      "numRatings": 0,
+      "ratingsSum": 0
+    },
+    "myItems": { },
+    "myBids": { }
+  });
+};
+
 // Functiont that checks if the user is logged in
 function isLoggedIn(authData) {
   if (authData) {
@@ -23,6 +41,8 @@ function createAccount(user, pass) {
 	  if (error) {
 	    console.log("Error creating user:", error);
 	  } else {
+	  	var userId = userData.uid;
+	  	setUser(userId, "Jack");
 		var errorCode = null;
 	  	if (error === null) {
 	  		console.log(user, pass);
