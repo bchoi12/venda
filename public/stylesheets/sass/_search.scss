@@ -68,11 +68,14 @@
     border: 1px solid rgba($black, 0.20);
 
     &:nth-child(odd) {
-      background-color: rgba($dark-blue, 0.2);
+
+      color: #f0f0f0;
+      background-color: $dark-blue;
     }
 
     &:nth-child(even) {
-      background-color: rgba($turquoise, 0.2);
+      color: $cream-white;
+      background-color: $turquoise;
     }
 
     .item-picture {
