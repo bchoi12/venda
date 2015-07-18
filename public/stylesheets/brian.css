@@ -143,3 +143,13 @@
 	background: url('/garagesale.jpg');
 	background-size: cover;	
 }
+
+.fade {
+	opacity: 0;
+	transition: all 1s;
+}
+
+.fade-slow {
+	opacity: 0;
+	transition: ease-in-out 6s;
+}

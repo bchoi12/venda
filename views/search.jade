@@ -11,7 +11,7 @@ block content
     div(class="search-bar")
       form(onsubmit='return false')
         input(class='search-field' type='text' placeholder='Search for items')
-        button(class='search-button' onclick='getItemsBelowPrice("container", 10, searchResults)') Go
+        button(class='search-button' onclick='getItemsBelowPrice(this.form.category.value, this.form.cost.value, searchResults)') Go
 
         div(class='cost-bar')
           label(for='cost' class='label-cost') Max Price ($)
@@ -29,11 +29,15 @@ block content
 
         div(class='category-bar')
           label(for='category' class='label-category') Select Category
-          select(id='category' class='select-category')
+          select(id='category', name='category', class='select-category')
             option(class='category-item' value='container') Container
             option(class='category-item' value='electronics') Electronics
             option(class='category-item' value='other') Other
 
+      br
+      br
+      h1(id="search-result-h1", class="fade", style="border-bottom: 1px solid #aaa; width: 70%; margin: 0 auto;") Search Results
+      h6(id="search-result-h6", class="fade-slow") finding great items for you to purchase...
       ul(class="search-results")
 
 
