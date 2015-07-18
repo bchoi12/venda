@@ -39,6 +39,9 @@
     border: 1px solid rgba(0, 0, 0, 0.2);
     background-color: #BBF3BB; }
 
+.search-button-js {
+  margin: 40px 0; }
+
 .label-cost,
 .label-dist,
 .label-category {
@@ -66,7 +69,7 @@
   .category-bar .range-helpers .range-input,
   .cost-bar .range-helpers .range-input,
   .dist-bar .range-helpers .range-input {
-    width: 30px; }
+    width: 60px; }
 
 .search-results {
   padding: 20px 0; }
