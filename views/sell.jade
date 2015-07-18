@@ -1,5 +1,8 @@
 extends layout
 
+block nav
+  include nav.jade
+
 block content
   script(type='text/javascript', src='javascripts/items.js')
   script(type='text/javascript', src='javascripts/myFirebase.js')
@@ -9,8 +12,8 @@ block content
         span(id='success')
 
         form(id="addItemForm", onsubmit='return false')
-            h1 Venda
-            h6 sell your stuff
+            h1 Sell
+            h6 list your stuff
             label(class="right-label") What item are you selling?
             input(name='name', placeholder='macbook pro')
             label(class="right-label") How long do you want this item available?
