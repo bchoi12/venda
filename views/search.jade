@@ -7,7 +7,14 @@ block content
   //- h1 #{title}
   script(type='text/javascript', src='javascripts/items.js')
 
+
+
   div(class='main-container ')
+    br
+    br
+    form(action="/search", method="post")
+      input(type="submit", name="goToSell", value="Sell Something!")
+
     div(class="search-bar")
       form(onsubmit='return false')
         input(class='search-field' type='text' placeholder='Search for items')
