@@ -6,6 +6,10 @@ var directionsService = new google.maps.DirectionsService();
 var marker;
 var validLocation = false;
 
+$(document).ready(function(){
+  init();
+})
+
 function init() {
 
   console.log("LET'S GO BOYZ");
@@ -17,7 +21,7 @@ function init() {
     mapTypeId: google.maps.MapTypeId.TERRAIN,
     disableDefaultUI: false
   }
-  map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
+  map = new google.maps.Map(document.getElementById('map-canvas'), myOptions);
   prepareGeolocation();
   doGeolocation();
 }
