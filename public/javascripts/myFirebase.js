@@ -359,7 +359,7 @@ function searchResults(data_list) {
   console.log(data_list.val());
   data_list.forEach(function(data) {
 
-    $('.search-results').append('<li class="search-results-item"><button class="bid-button">BID</button>' + data.val().item.name + ' | $' + data.val().currentBidPrice + '<br>' + data.val().item.description + '<br>' + data.val().item.sellerLocation + '</li>');
+    $('.search-results').append('<li class="search-results-item"><button class="bid-button">BID</button>' + data.val().item.name + ' | $' + data.val().currentBidPrice + '<br>' + data.val().item.description + '<br><a href="/meet-details/' + data.val().item.sellerLocation.latitude +  '/' + data.val().item.sellerLocation.longitude + '">View Location</a></li>');
 
     console.log(data.val());
     console.log(data.val().item.name);
