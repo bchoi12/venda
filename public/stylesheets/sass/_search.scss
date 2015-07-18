@@ -1,0 +1,88 @@
+.search-bar {
+  text-align: center;
+  padding: 40px 0;
+
+  .search-field {
+    height: 40px;
+    width: 50%;
+  }
+
+  .search-button {
+    height: 47px;
+    width: 47px;
+    border: 1px solid rgba($black, 0.20);
+  }
+}
+
+.label-cost,
+.label-dist,
+.label-category {
+  width: 15%;
+  display: inline-block;
+  text-align: left;
+
+}
+
+.search-cost,
+.search-dist,
+.select-category {
+  width: 35%;
+  display: inline-block;
+}
+
+.category-bar,
+.cost-bar,
+.dist-bar {
+  display: block;
+  padding: 15px 0;
+}
+
+.search-results {
+  padding: 20px 0;
+
+  .search-results-item {
+    width: 70%;
+    margin: 0 15%;
+    display: block;
+    height: 80px;
+    border: 1px solid rgba($black, 0.20);
+
+    &:nth-child(1) {
+      background-color: $dark-blue;
+    }
+
+    &:nth-child(2) {
+      background-color: $turquoise;
+    }
+
+    &:nth-child(3) {
+      background-color: $warm-blue;
+    }
+
+
+    .item-picture {
+      background-color: rgba($black, 0.20);
+      height: 60px;
+      width: 60px;
+      float: left;
+      padding: 10px;
+      margin-right: 20px;
+    }
+
+    .description {
+      padding: 15px 0;
+    }
+
+    .price {
+      float: right;
+    }
+
+    .distance {
+      float: right;
+    }
+
+    .categories {
+      font-size: 12px;
+    }
+  }
+}

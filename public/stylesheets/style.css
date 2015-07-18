@@ -49,12 +49,48 @@
   display: block;
   padding: 15px 0; }
 
+.search-results {
+  padding: 20px 0; }
+  .search-results .search-results-item {
+    width: 70%;
+    margin: 0 15%;
+    display: block;
+    height: 80px;
+    border: 1px solid rgba(0, 0, 0, 0.2); }
+    .search-results .search-results-item:nth-child(1) {
+      background-color: #315799; }
+    .search-results .search-results-item:nth-child(2) {
+      background-color: #68BCD5; }
+    .search-results .search-results-item:nth-child(3) {
+      background-color: #2564CC; }
+    .search-results .search-results-item .item-picture {
+      background-color: rgba(0, 0, 0, 0.2);
+      height: 60px;
+      width: 60px;
+      float: left;
+      padding: 10px;
+      margin-right: 20px; }
+    .search-results .search-results-item .description {
+      padding: 15px 0; }
+    .search-results .search-results-item .price {
+      float: right; }
+    .search-results .search-results-item .distance {
+      float: right; }
+    .search-results .search-results-item .categories {
+      font-size: 12px; }
+
 body {
   background-color: #f6f6f6;
   font-family: Helvetica; }
 
 .main-container {
   padding-top: 50px;
+  text-align: center; }
+
+.sub-header {
+  color: rgba(0, 0, 0, 0.85);
+  font-size: 14px;
+  font-size: 1.4rem;
   text-align: center; }
 
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
