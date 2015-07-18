@@ -2,9 +2,11 @@ extends layout
 
 block content
   script(type='text/javascript', src='javascripts/items.js')
+  script(type='text/javascript', src='javascripts/myFirebase.js')
+
   div(class="main-container bgbggs")
       div(class="form-container large-container")
-        form(id="addItem", onsubmit='return false')
+        form(id="addItemForm", onsubmit='return false')
             h1 Venda
             h6 sell your stuff
             label(class="right-label") What item are you selling?
