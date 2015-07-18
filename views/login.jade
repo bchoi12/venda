@@ -7,7 +7,7 @@ block content
 	h1= Login
 	h2(id='error')
 
-	form()
+	form(onsubmit='return false;')
 		h2(type='login', name='login') Login
 		input(type='email', name='email', placeholder='Email')
 		input(type='password', name='password', placeholder='Password')

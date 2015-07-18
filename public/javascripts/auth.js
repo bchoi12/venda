@@ -39,16 +39,16 @@ function login(user, pass) {
 	  	console.log("error on login");
 	  	switch (error.code) {
 	  		case "INVALID_EMAIL":
-
-	  			$('#error').empty();
-	  			$('#error').val('Invalid email!');
+	  			$('#error').html('Invalid email!');
+	  			break;
 	  		case "INVALID_PASSWORD":
-				$('#error').empty();
-	  			$('#error').val('Password is invalid!');
+	  			$('#error').html('Password is invalid!');
 	  			break;
 	  		case "INVALID_USER":
-				$('#error').empty();
-	  			$('#error').val('User is invalid!');
+	  			$('#error').html('User is invalid!');
+	  			break;
+	  		default:
+	  			$('#error').html('Login failed for unknown reasons!');
 	  			break;
 	  	}
 	  } else {
