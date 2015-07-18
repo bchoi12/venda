@@ -249,7 +249,7 @@ function getTopKItemsLeastCost(k, type, clientCallback) {
   var tempRef = ref.child("temp");
   itemsRef.orderByChild("type").equalTo(type).on("value", function(snapshot) {
     tempRef.set({})
-    console.log(snapshot.val());
+    // console.log(snapshot.val());
     snapshot.forEach(function(data) {
       // console.log(data.key());
       // console.log(data.val());
@@ -292,9 +292,20 @@ function getItemsBelowPrice(type, maxPrice, clientCallback) {
       });
     });
     // console.log("--------------------------------------------")
-    tempRef.orderByChild("currentBidPrice").endAt(maxPrice).on("value", function(snapshot2) {
-      console.log(snapshot2.val());
-      // clientCallback(snapshot2.val());
-    })
+    tempRef.orderByChild("currentBidPrice").endAt(maxPrice).on("value", function(snapshot2) {      
+      clientCallback(snapshot2);
+    });
   });
 }
+
+// Sample Usage Call back function
+// getItemsBelowPrice("container", 10, function(data_list) {
+//   console.log(data_list.val());
+//   data_list.forEach(function(data) {
+//     console.log(data.val());
+//     console.log(data.val().item.name);
+//     console.log(data.val().currentBidPrice);
+//     console.log(data.val().item.description);
+//     console.log(data.val().item.sellerLocation);
+//   })
+// });
