@@ -10,19 +10,21 @@ block content
   div(class='main-container ')
     div(class="search-bar")
         input(class='search-field' type='text' placeholder='Search for items')
-        button(class='search-button' type='submit') Go
+        button(class='search-button' onclick='') Go
 
       div(class='cost-bar')
-        label(for='cost' class='label-cost') Search By Cost
-        span(class='range-helpers') $
-          input(class='range-input' type='text' value='50')
-        input(id='cost' class='search-cost' type='range' min='0', max='100')
+        label(for='cost' class='label-cost') Max Price ($)
+        i(class='fa fa-dollar')
+        span(class='range-helpers', style='margin-right:20px;')
+          input(id='cost-range-input', class='range-input' type='text' value='500')
+        input(id='cost-range' class='search-cost' type='range', value='500', min='10', max='1000', step='10')
 
       div(class='dist-bar')
-        label(for='dist' class='label-dist') Search By Distance
-        span(class='range-helpers') $
-          input(class='range-input' type='text' value='5')
-        input(id='dist' class='search-dist' type='range' min='0', max='10')
+        label(for='dist' class='label-dist') Distance (miles)
+        i(class='fa fa-car')
+        span(class='range-helpers', style='margin-right:20px;')
+          input(id='dist-range-input', class='range-input', type='text', value='10')
+        input(id='dist-range' class='search-dist' type='range', value='10', min='0', max='20', step='.1')
 
       div(class='category-bar')
         label(for='category' class='label-category') Select Category
@@ -31,5 +33,6 @@ block content
           option(class='category-item') Category 2
           option(class='category-item') Category 3
 
+      ul(class="search-results")
 
 
