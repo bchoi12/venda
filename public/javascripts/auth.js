@@ -1,5 +1,8 @@
 var ref = new Firebase("https://venda.firebaseio.com/");
 
+function Error(msg) {
+  $('#error').html(msg);
+}
 var usersRef = ref.child("users");
 
 function setUser(userId, name) {
@@ -39,7 +42,7 @@ function createAccount(user, pass) {
 	  password : pass
 	}, function(error, userData) {
 	  if (error) {
-	    console.log("Error creating user:", error);
+	    Error("Error creating user:" + error);
 	  } else {
 	  	var userId = userData.uid;
 	  	setUser(userId, "Jack");
