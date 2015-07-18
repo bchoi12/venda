@@ -36,6 +36,10 @@
 	color: #ff0000;
 }
 
+#success {
+	color: #008000;
+}
+
 .form-container h1 {
 	border-bottom: 1px solid #aaa;
 	padding-bottom: 10px;
