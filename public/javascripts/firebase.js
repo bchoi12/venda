@@ -1,5 +1,5 @@
 // var ref = new Firebase("https://venda.firebaseio.com/");
-var ref = new Firebase("https://fiery-torch-745.firebaseio.com");
+var ref = new Firebase("https://venda.firebaseio.com");
 var usersRef = ref.child("users");
 var itemsRef = ref.child("items");
 var authId = "6789";
