@@ -1,4 +1,4 @@
-var ref = new Firebase("https://fiery-torch-745.firebaseio.com");
+var ref = new Firebase("https://venda.firebaseio.com");
 
 function Error(msg) {
   $('#error').html('msg');
