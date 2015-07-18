@@ -5,8 +5,8 @@ var itemsRef = ref.child("items");
 var authId = "6789";
 
 function Error(msg) {
-  $('#error').html('msg');
-
+  // $('#error').html('msg');
+  console.log(msg);
 }
 
 function setUser(userId, name) {
@@ -25,14 +25,23 @@ function setUser(userId, name) {
   });
 };
 
-function updateUserLocation(longitude, latitude) {
-  //login Error
+// clientCallback updates the name
+function getUserName(userId, clientCallback) {
+  var nameRef = usersRef.child(userId).child("name");
+  nameRef.on("value", function(data) {
+    clientCallback(data.val());
+  })
+}
 
-  var userLocationRef = usersRef.child(authId).child("currentLocation");
-  userLocationRef.update({
-    "longitude": longitude,
-    "latitude": latitude
-  });
+function updateUserLocation(longitude, latitude) {
+  if (authId !== null && authId !== undefined) {
+    var userLocationRef = usersRef.child(authId).child("currentLocation");
+    userLocationRef.update({
+      "longitude": longitude,
+      "latitude": latitude
+  })} else {
+    Error("Error! user needs to be logged in to update location!");
+  }
 };
 
 function addUserRating(userId, rating) {
@@ -74,7 +83,7 @@ function updateMyItem(itemId) {
     temp[itemId] = true;
     itemRef.update(temp);
   } else {
-     console.log("Error! user needs to be logged in to update selling items!");
+     Error("Error! user needs to be logged in to update selling items!");
   }
 };
 
@@ -85,14 +94,14 @@ function updateBidItem(itemId, price) {
     temp[itemId] = price;
     itemRef.update(temp);
   } else {
-    console.log("Error! user needs to be logged in to update bid of an item!");
+    Error("Error! user needs to be logged in to update bid of an item!");
   }
 };
 
 // clientCallback to update price
 function getMyBidPriceOnItem(itemId, clientCallback) {
-  var itemRef = usersRef.child(authId).child("myBids").child(itemId);
-  itemRef.on("value", function(data) {
+  var myBidRef = usersRef.child(authId).child("myBids").child(itemId);
+  myBidRef.on("value", function(data) {
     clientCallback(data.val());
   })
 };
@@ -107,6 +116,7 @@ function getUserLocation(userId, clientCallback) {
 // Items
 function addItem(closingTime, name, type, minimumSuggestedPrice, initialBidPrice, description) {
   if (authId !== null && authId !== undefined) {
+    var sellerLocation = "10";
     getUserLocation(authId, function(sellerLocation) {
       var itemId = itemsRef.push({
         status: "OPEN",
@@ -119,10 +129,10 @@ function addItem(closingTime, name, type, minimumSuggestedPrice, initialBidPrice
         description: description,
         sellerLocation: sellerLocation
       });
-      updateMyItem(itemId);
+      updateMyItem(itemId.key());
     })
   } else {
-    console.log("Error! user needs to be logged in to add an item!");
+    Error("Error! user needs to be logged in to add an item!");
   }
 };
 
@@ -150,7 +160,7 @@ function bidItem(itemId, price) {
       console.log("The read failed: " + errorObject.code);
     });
   } else {
-    console.log("Error! user needs to be logged in to bid an item!"); 
+    Error("Error! user needs to be logged in to bid an item!"); 
   }
 }
 
@@ -161,5 +171,4 @@ function getItemCurrentBidPrice(itemId, clientCallback) {
     clientCallback(data.val());
   })
 };
-
 

@@ -1,5 +1,11 @@
 var ref = new Firebase("https://fiery-torch-745.firebaseio.com");
 
+
+function Error(msg) {
+  $('#error').html('msg');
+
+}
+
 var authId;
 function authDataCallback(authData) {
   if (authData) {
@@ -14,7 +20,44 @@ function authDataCallback(authData) {
 ref.onAuth(authDataCallback);
 
 function getAllBids() {
-	
+	if (authId !== null || authId !== undefined) {
+		myBidsRef = ref.child('users').child(authId);
+		var myBids;
+		myBids.on('myBids', function(snapshot) {
+			var keyList = Object.keys(snapshot.val);
+			var idsToPrice = {};
+			var bidsRef = ref.child('bids');
+			keyList.forEach(function(keyId)) {
+				bidsRef.on(keyId, function(snapshot) {
+					var price = Object.keys(snapshot.val())[0];
+					idsToPrice[keyId] = price;
+				}, function(error) {
+					console.log("Could not get a specific item!");
+				});
+			}
+			var ids = Object.keys(idsToPrice);
+			var itemList = [];
+			ids.forEach(function(id) {
+				var price = idsToPrice[id];
+				var item = getItemById(id);
+				if (item[bidPrice] <= price) {
+					item["bidStatus"] = "WINNING BID";
+				} else {
+					item["bidStatus"] = "NOT TOP BID";
+				}
+				itemList.push(item);
+			});
+			return itemList;
+		}, function(error) {
+			console.log('Could not get your items! ERROR')
+			// Insert jquery for error logic
+			return null;
+		});
+	} else {
+		Error('You cannot get all your bids until you log in!')
+	}
+
+
 }
 
 function getItemById(id) {
@@ -63,19 +106,24 @@ function getItemById(id) {
 }
 
 function getAllItems() {
-	myItemsRef = ref.child('users').child(authId);
-	var itemsList = [];
-	myItemsRef.on('myItems', function(snapshot) {
-		var keyList = Object.getKeys(snapshot.val);
-		keyList.forEach(function(keyId) {
-			var item = getItemById(keyId);
-			itemsList.push(item);
-		});
-		return itemList;
+	if (authId !== null || authId !== undefined) {
+		myItemsRef = ref.child('users').child(authId);
+		var itemsList = [];
+		myItemsRef.on('myItems', function(snapshot) {
+			var keyList = Object.getKeys(snapshot.val);
+			keyList.forEach(function(keyId) {
+				var item = getItemById(keyId);
+				itemsList.push(item);
+			});
+			return itemList;
 
-	}, function(error) {
-		console.log('Could not get your items! ERROR')
-		// Insert jquery for error logic
-		return null;
-	});
+		}, function(error) {
+			console.log('Could not get your items! ERROR')
+			// Insert jquery for error logic
+			return null;
+		});
+	} else {
+		Error("You cannot get your items until you log in!");
+	}
+ 
 }
