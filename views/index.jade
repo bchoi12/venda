@@ -3,8 +3,63 @@ extends layout
 block content
   div(class="main-container")
 
+    div(class="search-bar")
+      input(class='search-field' type='text' placeholder='Search for items')
+      button(class='search-button' type='submit') Go
+
+    div(class='cost-bar')
+      label(for='cost' class='label-cost') Search By Cost
+      input(id='cost' class='search-cost' type='range')
+
+    div(class='dist-bar')
+      label(for='dist' class='label-dist') Search By Distance
+      input(id='dist' class='search-dist' type='range')
+
+    div(class='category-bar')
+      label(for='category' class='label-category') Select Category
+      select(id='category' class='select-category')
+        option(class='category-item') Category 1
+        option(class='category-item') Category 2
+        option(class='category-item') Category 3
+
+  h2(class='sub-header') Search Results
+
+  ul(class='search-results')
+
+    li(class='search-results-item')
+      img(class='item-picture' src='thing.jpg' alt='')
+      div(class='description') This is an amazing object that plays music and can double as a basketball.
+      div(class='categories') Categories: Sports, Music
+      div(class='price')
+        i(class='fa fa-usd')
+          span(class='stats') 2
+      div(class='distance')
+        i(class='fa fa-car')
+          span(class='stats') 0.2 mi
+
+    li(class='search-results-item')
+      img(class='item-picture' src='thing.jpg' alt='')
+      div(class='description') This is an amazing object that plays music and can double as a basketball.
+      div(class='categories') Categories: Sports, Music
+      div(class='price')
+        i(class='fa fa-usd')
+          span(class='stats') 2
+      div(class='distance')
+        i(class='fa fa-car')
+          span(class='stats') 0.2 mi
+
+    li(class='search-results-item')
+      img(class='item-picture' src='thing.jpg' alt='')
+      div(class='description') This is an amazing object that plays music and can double as a basketball.
+      div(class='categories') Categories: Sports, Music
+      div(class='price')
+        i(class='fa fa-usd')
+          span(class='stats') 2
+      div(class='distance')
+        i(class='fa fa-car')
+          span(class='stats') 0.2 mi
+
     //- h1(class='main-header')= title
     //- p Welcome to #{title}
 
     include login.jade
-

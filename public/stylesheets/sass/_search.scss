@@ -42,23 +42,18 @@
 
   .search-results-item {
     width: 70%;
-    margin: 0 15%;
+    margin: 15px 15%;
     display: block;
     height: 80px;
     border: 1px solid rgba($black, 0.20);
 
-    &:nth-child(1) {
-      background-color: $dark-blue;
+    &:nth-child(odd) {
+      background-color: rgba($dark-blue, 0.2);
     }
 
-    &:nth-child(2) {
-      background-color: $turquoise;
+    &:nth-child(even) {
+      background-color: rgba($turquoise, 0.2);
     }
-
-    &:nth-child(3) {
-      background-color: $warm-blue;
-    }
-
 
     .item-picture {
       background-color: rgba($black, 0.20);
@@ -73,12 +68,20 @@
       padding: 15px 0;
     }
 
-    .price {
-      float: right;
-    }
-
+    .price,
     .distance {
       float: right;
+      font-size: 60px;
+      position: relative;
+      top: -50px;
+    }
+
+    .stats {
+      font-size: 20px;
+      font-family: $serif;
+      padding: 10px;
+      position: relative;
+      top: -15px;
     }
 
     .categories {
