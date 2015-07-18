@@ -53,16 +53,14 @@
   padding: 20px 0; }
   .search-results .search-results-item {
     width: 70%;
-    margin: 0 15%;
+    margin: 15px 15%;
     display: block;
     height: 80px;
     border: 1px solid rgba(0, 0, 0, 0.2); }
-    .search-results .search-results-item:nth-child(1) {
-      background-color: #315799; }
-    .search-results .search-results-item:nth-child(2) {
-      background-color: #68BCD5; }
-    .search-results .search-results-item:nth-child(3) {
-      background-color: #2564CC; }
+    .search-results .search-results-item:nth-child(odd) {
+      background-color: rgba(49, 87, 153, 0.2); }
+    .search-results .search-results-item:nth-child(even) {
+      background-color: rgba(104, 188, 213, 0.2); }
     .search-results .search-results-item .item-picture {
       background-color: rgba(0, 0, 0, 0.2);
       height: 60px;
@@ -72,10 +70,18 @@
       margin-right: 20px; }
     .search-results .search-results-item .description {
       padding: 15px 0; }
-    .search-results .search-results-item .price {
-      float: right; }
+    .search-results .search-results-item .price,
     .search-results .search-results-item .distance {
-      float: right; }
+      float: right;
+      font-size: 60px;
+      position: relative;
+      top: -50px; }
+    .search-results .search-results-item .stats {
+      font-size: 20px;
+      font-family: Helvetica;
+      padding: 10px;
+      position: relative;
+      top: -15px; }
     .search-results .search-results-item .categories {
       font-size: 12px; }
 
