@@ -296,7 +296,9 @@ function getItemsBelowPrice(type, maxPrice, clientCallback) {
   $('#search-result-h6').css('opacity', '0.85');
 
   var tempRef = ref.child("temp");
-  itemsRef.orderByChild("type").equalTo(type).on("value", function(snapshot) {
+
+  if(type === "all") {
+    itemsRef.on("value", function(snapshot) {
     tempRef.set({})
     // console.log(snapshot.val());
     snapshot.forEach(function(data) {
@@ -318,13 +320,41 @@ function getItemsBelowPrice(type, maxPrice, clientCallback) {
       clientCallback(snapshot2);
     });
   });
+  } else {
+
+    itemsRef.orderByChild("type").equalTo(type).on("value", function(snapshot) {
+      tempRef.set({})
+      // console.log(snapshot.val());
+      snapshot.forEach(function(data) {
+        // console.log(data.key());
+        // console.log(data.val());
+        // console.log(data.val().currentBidPrice);
+        // list format
+        // temp = {};    
+        // temp[data.key()] = data.val().currentBidPrice;
+        // tempRef.update(temp);
+        tempRef.push({
+          pushId: data.key(),
+          currentBidPrice: data.val().currentBidPrice,
+          item: data.val()
+        });
+      });
+      // console.log("--------------------------------------------")
+      tempRef.orderByChild("currentBidPrice").endAt(maxPrice).on("value", function(snapshot2) {      
+        clientCallback(snapshot2);
+      });
+    });
+  }
 }
 
 function searchResults(data_list) {
+  $('.search-results').html('');
+  $('#search-result-h6').css('display', 'none');
+
   console.log(data_list.val());
   data_list.forEach(function(data) {
 
-    $('.search-results').append('<li class="search-results-item">' + data.val().item.name + ' | ' + data.val().currentBidPrice + '<br>' + data.val().item.description + '<br>' + data.val().item.sellerLocation + '</li>');
+    $('.search-results').append('<li class="search-results-item"><button class="bid-button">BID</button>' + data.val().item.name + ' | $' + data.val().currentBidPrice + '<br>' + data.val().item.description + '<br>' + data.val().item.sellerLocation + '</li>');
 
     console.log(data.val());
     console.log(data.val().item.name);
