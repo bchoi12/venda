@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  h1 #{title}
+  script(type='text/javascript', src='javascripts/items.js')
+  div(class="form-container large-container")
+    form(id="addItem", onsubmit='return false')
+        h1 Venda
+        h6 sell your stuff
+        label What item are you selling?
+        input(name='name', placeholder='macbook pro')
+        label How long do you want this item available?
+        input(name='time', placeholder='two days')
+        label What category does your item fall under?
+        input(name='type', placeholder='electronics')
+        label What is the starting price of your item?
+        input(name='initPrice', placeholder='897.17')
+        label What is the lowest price you would consider?
+        input(name='minSugPrice', placeholder='756.27')
+        label Describe your item!
+        input(name='descript', placeholder="an awesome thing that is in sort of awesome condition")
+        br
+        br
+        button(onclick='addItem(this.form.time.value, this.form.name.value, this.form.type.value, this.form.minSugPrice.value, this.form.descript.value, this.form.initPrice.value)') ADD ITEM
+    h6 disclaimer and stuff goes here
