@@ -4,6 +4,11 @@ var usersRef = ref.child("users");
 var itemsRef = ref.child("items");
 var searchRef = ref.child("itemLookup")
 var authId;
+
+function Success(msg) {
+  $('#success').html(msg);  
+}
+
 function authDataCallback(authData) {
   if (authData) {
     authId = authData.uid;
@@ -163,7 +168,7 @@ function addItem(closingTime, name, type, minimumSuggestedPrice, initialBidPrice
 
       }
     })
-    
+    Success("Successfully put a new item on sale!")
 
   } else {
     Error("Error! user needs to be logged in to add an item!");
