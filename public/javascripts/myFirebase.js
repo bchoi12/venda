@@ -316,6 +316,17 @@ function getItemsBelowPrice(type, maxPrice, clientCallback) {
   });
 }
 
+function searchResults(data_list) {
+  console.log(data_list.val());
+  data_list.forEach(function(data) {
+    console.log(data.val());
+    console.log(data.val().item.name);
+    console.log(data.val().currentBidPrice);
+    console.log(data.val().item.description);
+    console.log(data.val().item.sellerLocation);
+  })
+}
+
 // Sample Usage Call back function
 // getItemsBelowPrice("container", 10, function(data_list) {
 //   console.log(data_list.val());

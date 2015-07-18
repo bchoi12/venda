@@ -9,29 +9,30 @@ block content
 
   div(class='main-container ')
     div(class="search-bar")
+      form(onsubmit='return false')
         input(class='search-field' type='text' placeholder='Search for items')
-        button(class='search-button' onclick='') Go
+        button(class='search-button' onclick='getItemsBelowPrice("container", 10, searchResults)') Go
 
-      div(class='cost-bar')
-        label(for='cost' class='label-cost') Max Price ($)
-        i(class='fa fa-dollar')
-        span(class='range-helpers', style='margin-right:20px;')
-          input(id='cost-range-input', class='range-input' type='text' value='500')
-        input(id='cost-range' class='search-cost' type='range', value='500', min='10', max='1000', step='10')
+        div(class='cost-bar')
+          label(for='cost' class='label-cost') Max Price ($)
+          i(class='fa fa-dollar')
+          span(class='range-helpers', style='margin-right:20px;')
+            input(id='cost-range-input', style="width: 50px; text-align: right;" type='text', placeholder='$50')
+          input(id='cost-range' class='search-cost' type='range', name='cost', value='100', min='10', max='1000', step='10')
 
-      div(class='dist-bar')
-        label(for='dist' class='label-dist') Distance (miles)
-        i(class='fa fa-car')
-        span(class='range-helpers', style='margin-right:20px;')
-          input(id='dist-range-input', class='range-input', type='text', value='10')
-        input(id='dist-range' class='search-dist' type='range', value='10', min='0', max='20', step='.1')
+        div(class='dist-bar')
+          label(for='dist' class='label-dist') Distance (miles)
+          i(class='fa fa-car')
+          span(class='range-helpers', style='margin-right:20px;')
+            input(id='dist-range-input', style="width: 50px; text-align: right;", type='text', placeholder='15mi')
+          input(id='dist-range' class='search-dist', name='dist', type='range', value='15', min='5', max='25', step='.1')
 
-      div(class='category-bar')
-        label(for='category' class='label-category') Select Category
-        select(id='category' class='select-category')
-          option(class='category-item') Category 1
-          option(class='category-item') Category 2
-          option(class='category-item') Category 3
+        div(class='category-bar')
+          label(for='category' class='label-category') Select Category
+          select(id='category' class='select-category')
+            option(class='category-item' value='container') Container
+            option(class='category-item' value='electronics') Electronics
+            option(class='category-item' value='other') Other
 
       ul(class="search-results")
 

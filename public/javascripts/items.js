@@ -41,4 +41,10 @@ function bidItem(itemId, price) {
     console.log("The read failed: " + errorObject.code);
   });
 
+  function searchResults(data){
+    console.log(data.val().item);
+    // $('search-results')
+
+  }
+
 }
