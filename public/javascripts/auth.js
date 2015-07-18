@@ -24,7 +24,8 @@ function createAccount(user, pass) {
 	    console.log("Error creating user:", error);
 	  } else {
 		var errorCode = null;
-	  	while (error === null) {
+	  	if (error === null) {
+	  		console.log(user, pass);
 		  	ref.authWithPassword({
 			  email    : user,
 			  password : pass
