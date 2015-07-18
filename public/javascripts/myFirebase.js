@@ -3,8 +3,18 @@ var ref = new Firebase("https://venda.firebaseio.com/");
 var usersRef = ref.child("users");
 var itemsRef = ref.child("items");
 var searchRef = ref.child("itemLookup")
-var authId = "6789";
+var authId;
+function authDataCallback(authData) {
+  if (authData) {
+    authId = authData.uid;
+    console.log("User " + authData.uid + " is logged in with " + authData.provider);
+  } else {
+    authId = null;
+    console.log("User is no longer logged in!");
+  }
+}
 
+ref.onAuth(authDataCallback);
 function Error(msg) {
   $('#error').html('msg');
 }
@@ -115,6 +125,7 @@ function getUserLocation(userId, clientCallback) {
 
 // Items
 function addItem(closingTime, name, type, minimumSuggestedPrice, initialBidPrice, description) {
+  console.log("adding item!" + authId);
   if (authId !== null && authId !== undefined) {
     var sellerLocation = "10";
     var wordObject = {};
@@ -130,22 +141,29 @@ function addItem(closingTime, name, type, minimumSuggestedPrice, initialBidPrice
         description: description,
         sellerLocation: sellerLocation
       });
+      var userItemsRef = usersRef.child(authId).child('myItems');
+      var tempObjectMyItems = {};
+      tempObjectMyItems[itemId.key()] = true;
+      userItemsRef.update(tempObjectMyItems);
       updateMyItem(itemId.key());
+      console.log(name);
       var wordList = name.split(" ");
       var listLen = wordList.length;
       for (var i = 0; i < listLen; i++) {
-        wordObject[wordList[i]] = itemId.key();
+        var curWord = wordList[i];
+        wordObject[curWord] = itemId.key();
+        console.log(wordObject);
+        for (var key in wordObject) {
+          wordRef = searchRef.child(key);
+          var id = wordObject[key];
+          var object = {};
+          object[id] = true;
+          wordRef.update(object);
+        }
 
       }
     })
     
-    for (var key in wordObject) {
-      wordRef = searchRef.child(key);
-      var word = wordObject[key];
-      var object = {};
-      object[word] = true;
-      wordRef.set(object);
-    }
 
   } else {
     Error("Error! user needs to be logged in to add an item!");
@@ -249,7 +267,7 @@ function getTopKItemsLeastCost(k, type, clientCallback) {
   var tempRef = ref.child("temp");
   itemsRef.orderByChild("type").equalTo(type).on("value", function(snapshot) {
     tempRef.set({})
-    console.log(snapshot.val());
+    // console.log(snapshot.val());
     snapshot.forEach(function(data) {
       // console.log(data.key());
       // console.log(data.val());
@@ -292,9 +310,20 @@ function getItemsBelowPrice(type, maxPrice, clientCallback) {
       });
     });
     // console.log("--------------------------------------------")
-    tempRef.orderByChild("currentBidPrice").endAt(maxPrice).on("value", function(snapshot2) {
-      console.log(snapshot2.val());
-      // clientCallback(snapshot2.val());
-    })
+    tempRef.orderByChild("currentBidPrice").endAt(maxPrice).on("value", function(snapshot2) {      
+      clientCallback(snapshot2);
+    });
   });
 }
+
+// Sample Usage Call back function
+// getItemsBelowPrice("container", 10, function(data_list) {
+//   console.log(data_list.val());
+//   data_list.forEach(function(data) {
+//     console.log(data.val());
+//     console.log(data.val().item.name);
+//     console.log(data.val().currentBidPrice);
+//     console.log(data.val().item.description);
+//     console.log(data.val().item.sellerLocation);
+//   })
+// });
