@@ -8,6 +8,22 @@ var validLocation = false;
 
 $(document).ready(function(){
   init();
+
+    $('#dist-range').on('change', function() {
+      $('#dist-range-input').val($('#dist-range').val());
+    });
+
+    $('#cost-range').on('change', function(){
+      $('#cost-range-input').val($('#cost-range').val());
+    });
+
+    $('#dist-range-input').keyup(function(){
+      $('#dist-range').val($('#dist-range-input').val());
+    });
+
+    $('#cost-range-input').keyup(function(){
+      $('#cost-range').val($('#cost-range-input').val());
+    });
 })
 
 function init() {
