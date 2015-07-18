@@ -2,6 +2,7 @@ block content
 	h1=Login
 
 	div(id="form-container")
+		span(id='error')
 		form(id="login", onsubmit='return false;')
 			h2(type='login', name='login') Login
 			input(type='email', name='email', placeholder='email')
@@ -13,8 +14,4 @@ block content
 			input(type='password', name='password', placeholder='password')
 			button(onclick='createAccount(this.form.email.value, this.form.password.value)') SUBMIT
 
-	span(id='error')
-
-
-	h2 Login With Facebook
-	button(type='submit', onclick="loginFacebookPopup()") Login
+		i(id="facebook", class="fa fa-facebook-official", onclick="loginFacebookPopup()")
