@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var ref = new Firebase("https://venda.firebaseio.com/");
 
 /* GET home page. */
 router.get('/', function(req, res, next) {

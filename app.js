@@ -8,7 +8,7 @@ var Firebase = require('firebase');
 
 var routes = require('./routes/index');
 var item = require('./routes/item');
-var login = require('./routes/login');
+var login = require('./routes/auth/login');
 var my = require('./routes/my');
 var search = require('./routes/search');
 var sell = require('./routes/sell');

@@ -36,6 +36,7 @@ function login(user, pass) {
 	  password : pass
 	}, function(error, authData) {
 	  if (error) {
+	  	console.log("error on login");
 	  	switch (error.code) {
 	  		case "INVALID_EMAIL":
 
