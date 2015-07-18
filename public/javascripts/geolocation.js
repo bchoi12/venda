@@ -6,7 +6,20 @@ var directionsService = new google.maps.DirectionsService();
 var marker;
 var validLocation = false;
 
+var lon;
+var lat;
+
 $(document).ready(function(){
+
+  var url = window.location.href;
+  var urlVars = url.split('/');
+
+  console.log(url);
+  console.log(urlVars);
+
+  lat = urlVars[urlVars.length-2];
+  lon = urlVars[urlVars.length-1];
+
   init();
 
     $('#dist-range').on('change', function() {
@@ -80,6 +93,10 @@ function positionSuccess(position) {
   // Centre the map on the new location
   var coords = position.coords || position.coordinate || position;
   var latLng = new google.maps.LatLng(coords.latitude, coords.longitude);
+
+  console.log(coords.latitude);
+  console.log(coords.longitude);
+
   map.setCenter(latLng);
   map.setZoom(12);
   marker = new google.maps.Marker({
@@ -115,7 +132,10 @@ function positionSuccess(position) {
 
     validLocation = true;
 
-    route(marker.getPosition(), 'san francisco, ca');
+    console.log(lat);
+    console.log(lon);
+
+    route(marker.getPosition(), new google.maps.LatLng(lat, lon));
   });
 }
 
@@ -142,5 +162,23 @@ function route(start, end){
     if (status == google.maps.DirectionsStatus.OK) {
       directionsDisplay.setDirections(response);
     }
+
+  (new google.maps.Geocoder()).geocode({latLng: end}, function(resp) {
+    var place = "SOMEWHERE AROUND HERE";
+    if (resp[0]) {
+      var bits = [];
+      for (var i = 0, I = resp[0].address_components.length; i < I; ++i) {
+        var component = resp[0].address_components[i];
+        if (contains(component.types, 'political')) {
+          bits.push(component.long_name);
+        }
+      }
+      if (bits.length) {
+        place = bits.join(' , ');
+      }
+    }
+    console.log("BOOOOOM GOTCHA");
+    $('#meetup-location').html(place);
+  });
   });
 }
