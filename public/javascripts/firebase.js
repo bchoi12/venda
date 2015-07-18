@@ -1,5 +1,5 @@
-// var ref = new Firebase("https://venda.firebaseio.com/");
-var ref = new Firebase("https://venda.firebaseio.com");
+var ref = new Firebase("https://venda.firebaseio.com/");
+// var ref = new Firebase("https://fiery-torch-745.firebaseio.com");
 var usersRef = ref.child("users");
 var itemsRef = ref.child("items");
 var searchRef = ref.child("itemLookup")
@@ -150,6 +150,13 @@ function addItem(closingTime, name, type, minimumSuggestedPrice, initialBidPrice
   }
 };
 
+function addImage(itemId, imageUrl) {
+  var imagesRef = itemsRef.child(itemId).child("imageUrls");
+  imagesRef.push({
+    imageUrls: imageUrl
+  });
+}
+
 function setMeetingLocation(itemId, time, loc) {
   meetupTimeRef = itemsRef.child(itemId);
   meetupTimeRef.update({meetupTime: time, meetupLocation: loc});
@@ -178,10 +185,10 @@ function bidItem(itemId, price) {
   }
 }
 
-// clientCallback update current bid price
+// clientCallback to get current bid price
 function getItemCurrentBidPrice(itemId, clientCallback) {
   var bidPriceRef = itemsRef.child(itemId).child("currentBidPrice");
-  itemRef.on("value", function(data) {
+  bidPriceRef.on("value", function(data) {
     clientCallback(data.val());
   })
 };
@@ -190,3 +197,46 @@ function itemNameLookup(words) {
   
 }
 
+// clientCallback to get the bid price
+function getItemStatus(itemId, clientCallback) {
+  var itemRef = itemsRef.child(itemId).child("status");
+  itemRef.on("value", function(data) {
+    clientCallback(data.val());
+  })
+}
+
+function updateItemStatus(itemId, status) {
+  var itemRef = itemsRef.child(itemId);
+  itemRef.update({
+      "status": status
+  })
+}
+
+function closeItem(itemId) {
+  updateItemStatus(itemId, "CLOSED");
+}
+
+function setOnHoldItem(itemId) {
+  updateItemStatus(itemId, "ON HOLD");
+}
+
+function getItemSellerId(itemId, clientCallback) {
+  var itemRef = itemsRef.child(itemId).child("sellerId");
+  itemRef.on("value", function(data) {
+    clientCallback(data.val());
+  })
+}
+
+function getItemClosingTime(itemId, clientCallback) {
+  var itemRef = itemsRef.child(itemId).child("closingTime");
+  itemRef.on("value", function(data) {
+    clientCallback(data.val());
+  })
+}
+
+function getItem(itemId) {
+  var itemRef = itemsRef.child(itemId);
+  itemRef.on("value", function(data) {
+    clientCallback(data.val());
+  })
+}

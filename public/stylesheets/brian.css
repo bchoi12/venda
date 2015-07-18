@@ -123,8 +123,8 @@
 	padding-bottom: 0px;
 }
 
-.main-container {
-	background: url('http://www.sanfrancisco.travel/sites/sftraveldev.prod.acquia-sites.com/files/SanFrancisco_0.jpg');
+.bgbgbg {
+	background: url('/sf.jpg');
 	background-size: cover;
 	padding-bottom: 50px;
 }

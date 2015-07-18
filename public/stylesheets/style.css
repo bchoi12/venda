@@ -47,7 +47,8 @@
 .cost-bar,
 .dist-bar {
   display: block;
-  padding: 15px 0; }
+  padding: 15px 0;
+  text-align: center; }
 
 .search-results {
   padding: 20px 0; }

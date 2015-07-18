@@ -1,27 +1,35 @@
 extends layout
 
+block nav
+  nav(class='navigation')
+    ul(class='menu')
+      li(class='menu-item') Menu
+      li(class='menu-item')
+        h1(class="main-header") Search
+
 block content
-  h1 #{title}
+  //- h1 #{title}
   script(type='text/javascript', src='javascripts/items.js')
 
-  div(class="search-bar")
-      input(class='search-field' type='text' placeholder='Search for items')
-      button(class='search-button' type='submit') Go
+  div(class='main-container')
+    div(class="search-bar")
+        input(class='search-field' type='text' placeholder='Search for items')
+        button(class='search-button' type='submit') Go
 
-    div(class='cost-bar')
-      label(for='cost' class='label-cost') Search By Cost
-      input(id='cost' class='search-cost' type='range')
+      div(class='cost-bar')
+        label(for='cost' class='label-cost') Search By Cost
+        input(id='cost' class='search-cost' type='range')
 
-    div(class='dist-bar')
-      label(for='dist' class='label-dist') Search By Distance
-      input(id='dist' class='search-dist' type='range')
+      div(class='dist-bar')
+        label(for='dist' class='label-dist') Search By Distance
+        input(id='dist' class='search-dist' type='range')
 
-    div(class='category-bar')
-      label(for='category' class='label-category') Select Category
-      select(id='category' class='select-category')
-        option(class='category-item') Category 1
-        option(class='category-item') Category 2
-        option(class='category-item') Category 3
+      div(class='category-bar')
+        label(for='category' class='label-category') Select Category
+        select(id='category' class='select-category')
+          option(class='category-item') Category 1
+          option(class='category-item') Category 2
+          option(class='category-item') Category 3
 
 
 
