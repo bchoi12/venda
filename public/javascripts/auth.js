@@ -46,23 +46,23 @@ function createAccount(user, pass) {
 	  } else {
 	  	var userId = userData.uid;
 	  	setUser(userId, "Jack");
-		var errorCode = null;
-	  	if (error === null) {
-	  		console.log(user, pass);
-		  	ref.authWithPassword({
-			  email    : user,
-			  password : pass
-			}, function(error, authData) {
-			  if (error) {
-			  } else {
-		    	error = true;
-			  }
-			}, {
-				remember: "sessionOnly"
-			});	  		
-	  	}
+		// var errorCode = null;
+	 //  	if (error === null) {
+	 //  		console.log(user, pass);
+		//   	ref.authWithPassword({
+		// 	  email    : user,
+		// 	  password : pass
+		// 	}, function(error, authData) {
+		// 	  if (error) {
+		// 	  } else {
+		//     	error = true;
+		// 	  }
+		// 	}, {
+		// 		remember: "sessionOnly"
+		// 	});	  		
+	 //  	}
 	    console.log("Successfully created user account with uid:", userData.uid);
-	    window.location.href="/search"
+	    // window.location.href="/search"
 	  }
 	});
 };
