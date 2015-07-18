@@ -291,6 +291,10 @@ function getTopKItemsLeastCost(k, type, clientCallback) {
 }
 
 function getItemsBelowPrice(type, maxPrice, clientCallback) {
+
+  $('#search-result-h1').css('opacity', '1');
+  $('#search-result-h6').css('opacity', '0.85');
+
   var tempRef = ref.child("temp");
   itemsRef.orderByChild("type").equalTo(type).on("value", function(snapshot) {
     tempRef.set({})
@@ -319,6 +323,9 @@ function getItemsBelowPrice(type, maxPrice, clientCallback) {
 function searchResults(data_list) {
   console.log(data_list.val());
   data_list.forEach(function(data) {
+
+    $('.search-results').append('<li class="search-results-item">' + data.val().item.name + ' | ' + data.val().currentBidPrice + '<br>' + data.val().item.description + '<br>' + data.val().item.sellerLocation + '</li>');
+
     console.log(data.val());
     console.log(data.val().item.name);
     console.log(data.val().currentBidPrice);
