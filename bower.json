@@ -1,0 +1,22 @@
+{
+  "name": "venda-app",
+  "version": "0.0.0",
+  "homepage": "https://github.com/jadesym/venda",
+  "description": "[In]tern Hackday 2015",
+  "main": "\"public/stylesheets/style.css\"",
+  "authors": [
+    "Kevin Fu",
+    "Kelly Yu",
+    "Brian Choi",
+    "Spencer Kim",
+    "Jacky Wang"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

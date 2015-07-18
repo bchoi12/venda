@@ -1,0 +1,47 @@
+.navigation {
+  width: 100%;
+  background-color: rgba($warm-blue, 0.85);;
+  position: fixed;
+
+  .menu {
+    margin: 0;
+    padding: 0;
+    // height: 56px;
+
+    .menu-item {
+      display: inline-block;
+      width: 100%;
+
+      .main-header {
+        color: $header-black;
+        font-size: 14px;
+        font-size: 1.4rem;
+        text-align: center;
+
+      }
+
+      &:first-child {
+        position: fixed;
+        top: 0;
+        left: 0;
+        padding: 20px;
+      }
+
+    }
+  }
+}
+
+.search-bar {
+  text-align: center;
+
+  .search-field {
+    height: 40px;
+    width: 50%;
+  }
+
+  .search-button {
+    height: 48px;
+    width: 48px;
+    border: 0;
+  }
+}

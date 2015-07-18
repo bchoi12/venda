@@ -1,0 +1,18 @@
+block content
+	h1= Login
+	h2(id='error')
+
+	form(onsubmit='return false;')
+		h2(type='login', name='login') Login
+		input(type='email', name='email', placeholder='Email')
+		input(type='password', name='password', placeholder='Password')
+		button(onclick='login(this.form.email.value, this.form.password.value)') Submit
+
+	form(onsubmit='return false;')
+		h2(type='signup', name='signup') Signup
+		input(type='email', name='email', placeholder='Email')
+		input(type='password', name='password', placeholder='Password')
+		button(onclick='createAccount(this.form.email.value, this.form.password.value)') Submit
+
+	h2 Login With Facebook
+	button(type='submit', onclick="loginFacebookPopup()") Login
