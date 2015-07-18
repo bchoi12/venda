@@ -251,9 +251,9 @@ function getTopKItemsLeastCost(k, type, clientCallback) {
     tempRef.set({})
     console.log(snapshot.val());
     snapshot.forEach(function(data) {
-      console.log(data.key());
-      console.log(data.val());
-      console.log(data.val().currentBidPrice);
+      // console.log(data.key());
+      // console.log(data.val());
+      // console.log(data.val().currentBidPrice);
       // list format
       // temp = {};    
       // temp[data.key()] = data.val().currentBidPrice;
@@ -264,10 +264,10 @@ function getTopKItemsLeastCost(k, type, clientCallback) {
         item: data.val()
       });
     });
-    console.log("--------------------------------------------")
+    // console.log("--------------------------------------------")
     tempRef.orderByChild("currentBidPrice").limitToFirst(3).on("value", function(snapshot2) {
-      console.log(snapshot2.key());
-      // clientCallback(snapshot2.val().item)
+      // console.log(snapshot2.val());
+      clientCallback(snapshot2.val());
     })
   });
 }
