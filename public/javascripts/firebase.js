@@ -2,6 +2,7 @@ var ref = new Firebase("https://venda.firebaseio.com/");
 // var ref = new Firebase("https://fiery-torch-745.firebaseio.com");
 var usersRef = ref.child("users");
 var itemsRef = ref.child("items");
+var searchRef = ref.child("itemLookup")
 var authId = "6789";
 
 function Error(msg) {
@@ -117,6 +118,7 @@ function getUserLocation(userId, clientCallback) {
 function addItem(closingTime, name, type, minimumSuggestedPrice, initialBidPrice, description) {
   if (authId !== null && authId !== undefined) {
     var sellerLocation = "10";
+    var wordObject = {};
     getUserLocation(authId, function(sellerLocation) {
       var itemId = itemsRef.push({
         status: "OPEN",
@@ -130,7 +132,19 @@ function addItem(closingTime, name, type, minimumSuggestedPrice, initialBidPrice
         sellerLocation: sellerLocation
       });
       updateMyItem(itemId.key());
+      var wordList = name.split(" ");
+      var listLen = wordList.length;
+      for (var i = 0l i < listLen; i++) {
+        wordObject[wordList[i]] = itemId.key();
+
+      }
     })
+    
+    for (var key in wordObject) {
+      wordRef = searchRef.child(key);
+      wordRef.update({wordObject[key] : true});
+    }
+
   } else {
     Error("Error! user needs to be logged in to add an item!");
   }
@@ -178,6 +192,12 @@ function getItemCurrentBidPrice(itemId, clientCallback) {
     clientCallback(data.val());
   })
 };
+
+function itemNameLookup(words) { 
+  var wordSet = new Set(words);
+  
+  
+}
 
 // clientCallback to get the bid price
 function getItemStatus(itemId, clientCallback) {
