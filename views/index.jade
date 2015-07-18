@@ -14,18 +14,21 @@ block content
       input(class='search-field' type='text' placeholder='Search for items')
       button(class='search-button' type='submit') Go
 
-    label(for='search-cost') Search By Cost
-    input(id='search-cost' class='search-cost' type='range')
+    div(class='cost-bar')
+      label(for='cost' class='label-cost') Search By Cost
+      input(id='cost' class='search-cost' type='range')
 
-    label(for='search-dist') Search By Distance
-    input(id='search-dist' class='search-dist' type='range')
+    div(class='dist-bar')
+      label(for='dist' class='label-dist') Search By Distance
+      input(id='dist' class='search-dist' type='range')
 
-    label(for='select-category') Select Category
-    select(id='select-category' class='select-category')
-      option(class='category-item') Category 1
-      option(class='category-item') Category 2
-      option(class='category-item') Category 3
+    div(class='category-bar')
+      label(for='category' class='label-category') Select Category
+      select(id='category' class='select-category')
+        option(class='category-item') Category 1
+        option(class='category-item') Category 2
+        option(class='category-item') Category 3
 
-    h1(class='main-header')= title
-    p Welcome to #{title}
+    //- h1(class='main-header')= title
+    //- p Welcome to #{title}
 
