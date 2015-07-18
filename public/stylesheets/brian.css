@@ -26,6 +26,8 @@
 	width: 20%;
 	min-width: 300px;
 	margin: 0 auto;
+
+	background-color: rgba(246, 246, 246, 0.7);
 }
 
 .form-container #error {
@@ -119,4 +121,9 @@
 	color: #3b5998;
 	font-size: 66px;
 	padding-bottom: 0px;
+}
+
+.main-container {
+	background: url('http://i.onionstatic.com/onion/1456/9/16x9/2048.jpg');
+	background-size: cover;
 }
